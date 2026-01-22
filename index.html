@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Review Task</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;}
+body { background: linear-gradient(135deg,#6a11cb 0%,#2575fc 100%); color:#333; min-height:100vh; display:flex; justify-content:center; align-items:flex-start; padding:15px;}
+.container { background:#fff; max-width:480px; width:100%; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.15); overflow:hidden; margin-bottom:40px; }
+header { background:#2575fc; color:#fff; padding:25px 20px; text-align:center; font-size:22px; font-weight:700; }
+main { padding:20px 25px; line-height:1.5; font-size:15px; }
+h2 { color:#2575fc; margin-top:20px; margin-bottom:10px; font-weight:600; font-size:18px; }
+p { margin-bottom:15px; }
+.btn { display:block; background:#6a11cb; color:#fff; text-align:center; padding:14px 0; margin:12px 0; border-radius:8px; font-weight:600; font-size:16px; text-decoration:none; transition: background 0.3s ease; }
+.btn:hover { background:#4e07a6; }
+.steps { background:#f5f7ff; border-left:5px solid #2575fc; padding:15px 20px; border-radius:6px; font-size:14px; color:#444; margin-bottom:15px; }
+.faq { margin-top:25px; }
+.faq summary { cursor:pointer; font-weight:600; font-size:15px; padding:10px 15px; background:#e9efff; border-radius:6px; margin-bottom:5px; user-select:none; }
+.faq details[open] summary { border-bottom-left-radius:0; border-bottom-right-radius:0; background:#d0dbff; }
+.faq p { padding:10px 15px 15px 15px; background:#f0f5ff; border-radius:0 0 6px 6px; font-size:14px; color:#333; line-height:1.4; }
+footer { font-size:13px; color:#999; text-align:center; padding:12px 20px; }
+.guide-video { width:100%; overflow:hidden; border-radius:12px; margin-bottom:15px; }
+.guide-video video { width:100%; border-radius:12px; display:block; }
+.guide-link { background:#2575fc; color:white; text-align:center; padding:12px 0; font-weight:600; font-size:16px; text-decoration:none; display:block; border-radius:0 0 12px 12px; transition: background 0.3s ease; margin-top:-8px; }
+.guide-link:hover { background:#1a4bc8; }
+.review-slider { height:220px; overflow:hidden; position:relative; margin-bottom:20px; background:#f0f5ff; border-radius:10px; padding:10px;}
+.review-track { display:flex; flex-direction:column; animation: scrollReviews 25s linear infinite; }
+.review { background:#fff; padding:12px 15px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.08); font-size:14px; color:#222; margin-bottom:10px; }
+@keyframes scrollReviews { 0% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
+.language-switch { display:flex; justify-content:flex-end; gap:10px; margin-bottom:15px; }
+.language-switch button { padding:6px 12px; border:none; border-radius:6px; background:#2575fc; color:white; cursor:pointer; font-size:14px; transition:0.3s; }
+.language-switch button:hover { background:#1a4bc8; }
+@media(max-width:500px){ header{font-size:20px;padding:20px 15px;} main{padding:15px 20px;font-size:14px;} .btn,.guide-link{font-size:15px;padding:12px 0;} }
+</style>
+</head>
+<body>
+<div class="container">
+<header>Online Review Task</header>
+
+<div class="language-switch">
+  <button onclick="setLanguage('en')">English</button>
+  <button onclick="setLanguage('ms')">Bahasa Melayu</button>
+</div>
+
+<!-- Video Guide -->
+<div class="guide-video" aria-label="Guide Video">
+  <video autoplay loop muted playsinline>
+    <source src="guide-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <a href="https://maps.app.goo.gl/39zfEzceoP7i298C8" class="guide-link" target="_blank" rel="noopener noreferrer">
+    Click here to try
+  </a>
+</div>
+
+<main>
+<p id="intro-text">A simple task you can do on your phone. No upfront fees, payment after completion.</p>
+
+<h2 id="download-title">Download the app</h2>
+<a class="btn" href="https://play.google.com/store/apps/details?id=com.missday.app" target="_blank" rel="noopener noreferrer" id="android-btn">Android Download</a>
+<a class="btn" href="https://apps.apple.com/us/app/mistchat/id6755105120" target="_blank" rel="noopener noreferrer" id="ios-btn">iOS Download</a>
+
+<h2 id="start-title">How to start</h2>
+<div class="steps" id="steps-text">
+1. Install the app<br>
+2. Register a new account<br>
+3. Add guide ID: <strong>syafikah213</strong>
+</div>
+
+<h2 id="reviews-title">Customer Reviews</h2>
+<div class="review-slider">
+  <div class="review-track" id="review-track"></div>
+</div>
+
+<section class="faq">
+<h2 id="faq-title">FAQ</h2>
+<details><summary id="faq-q1">Is this a scam?</summary><p id="faq-a1">No, it’s not. No deposit or upfront payment is needed.</p></details>
+<details><summary id="faq-q2">Do I need to pay anything?</summary><p id="faq-a2">No fees required. You only get paid after completing tasks.</p></details>
+<details><summary id="faq-q3">Can I stop anytime?</summary><p id="faq-a3">Yes, you can stop anytime you want.</p></details>
+</section>
+</main>
+
+<footer>© 2026 - Online Review Task</footer>
+</div>
+
+<script>
+// Reviews
+const reviews_en = [
+"⭐⭐⭐⭐⭐ 5 Stars - Very easy and reliable. I earned RM300 in a week! - John",
+"⭐⭐⭐⭐⭐ 5 Stars - Excellent app. Tasks are simple, I made extra income daily. - Siti",
+"⭐⭐⭐⭐ 4 Stars - Good experience, payment is quick. - Ali",
+"⭐⭐⭐⭐⭐ 5 Stars - I love this app! Tasks are easy anywhere. - Mei Ling",
+"⭐⭐⭐⭐⭐ 5 Stars - Customer support is responsive. Highly recommended! - David",
+"⭐⭐⭐⭐⭐ 5 Stars - Tasks are clear, payments reliable. Made RM500 this week! - Aisyah",
+"⭐⭐⭐⭐ 4 Stars - Good, but more variety of tasks needed. - Michael",
+"⭐⭐⭐⭐⭐ 5 Stars - Easy to earn money. Instructions simple. - Nurul",
+"⭐⭐⭐⭐⭐ 5 Stars - Impressed with how easy to earn. - Farid",
+"⭐⭐⭐⭐ 4 Stars - Tasks good, app sometimes slows. Still worth it. - Lina",
+"⭐⭐⭐⭐⭐ 5 Stars - User-friendly, completed all tasks. - Zaki",
+"⭐⭐⭐⭐⭐ 5 Stars - Recommend to friends. Trustworthy. - Hana",
+"⭐⭐⭐⭐ 4 Stars - Payment reliable, want more variety. - Amir",
+"⭐⭐⭐⭐⭐ 5 Stars - Easy to understand, tasks quick. - Nadia",
+"⭐⭐⭐⭐⭐ 5 Stars - Works perfectly, tasks simple, earning real. - Hafiz",
+"⭐⭐⭐⭐⭐ 5 Stars - Fantastic! Completed tasks in minutes. - Shiela",
+"⭐⭐⭐⭐ 4 Stars - Good experience, app easy, more updates needed. - Roslan",
+"⭐⭐⭐⭐⭐ 5 Stars - Love app! Clear instructions, smooth interface. - Farhana",
+"⭐⭐⭐⭐⭐ 5 Stars - Tasks easy, fun, profitable. Highly recommend. - Amirul",
+"⭐⭐⭐⭐ 4 Stars - App fine, sometimes glitches, still good. - Siti Aisyah",
+"⭐⭐⭐⭐⭐ 5 Stars - Completed many tasks, received payment fast. - Daniel",
+"⭐⭐⭐⭐⭐ 5 Stars - Excellent for extra income. Easy to follow. - Puteri",
+"⭐⭐⭐⭐ 4 Stars - Short tasks, simple, payment guaranteed. - Johan",
+"⭐⭐⭐⭐⭐ 5 Stars - Love this app! Making extra income easy. - Nadiah",
+"⭐⭐⭐⭐⭐ 5 Stars - Clean interface, tasks easy, earning real. - Hakim"
+];
+
+const reviews_ms = [
+"⭐⭐⭐⭐⭐ 5 Bintang - Sangat mudah dan boleh dipercayai. Saya mendapat RM300 dalam seminggu! - John",
+"⭐⭐⭐⭐⭐ 5 Bintang - Aplikasi hebat. Tugasan mudah, saya mendapat pendapatan tambahan setiap hari. - Siti",
+"⭐⭐⭐⭐ 4 Bintang - Pengalaman baik, pembayaran cepat. - Ali",
+"⭐⭐⭐⭐⭐ 5 Bintang - Saya suka aplikasi ini! Tugasan mudah di mana-mana. - Mei Ling",
+"⭐⭐⭐⭐⭐ 5 Bintang - Sokongan pelanggan responsif. Sangat disyorkan! - David",
+"⭐⭐⭐⭐⭐ 5 Bintang - Tugasan jelas, pembayaran boleh dipercayai. RM500 minggu ini! - Aisyah",
+"⭐⭐⭐⭐ 4 Bintang - Baik, tapi perlukan lebih variasi tugasan. - Michael",
+"⭐⭐⭐⭐⭐ 5 Bintang - Sangat mudah menjana wang. Arahan mudah. - Nurul",
+"⭐⭐⭐⭐⭐ 5 Bintang - Kagum dengan betapa mudahnya untuk menjana pendapatan. - Farid",
+"⭐⭐⭐⭐ 4 Bintang - Tugasan baik, aplikasi kadang lambat. Masih berbaloi. - Lina",
+"⭐⭐⭐⭐⭐ 5 Bintang - Mesra pengguna, selesai semua tugasan. - Zaki",
+"⭐⭐⭐⭐⭐ 5 Bintang - Cadangkan kepada rakan. Boleh dipercayai. - Hana",
+"⭐⭐⭐⭐ 4 Bintang - Pembayaran boleh dipercayai, mahu lebih variasi. - Amir",
+"⭐⭐⭐⭐⭐ 5 Bintang - Mudah difahami, tugasan cepat. - Nadia",
+"⭐⭐⭐⭐⭐ 5 Bintang - Berfungsi dengan baik, tugasan mudah, pendapatan nyata. - Hafiz",
+"⭐⭐⭐⭐⭐ 5 Bintang - Hebat! Tugasan siap dalam beberapa minit. - Shiela",
+"⭐⭐⭐⭐ 4 Bintang - Pengalaman baik, aplikasi mudah, perlu kemas kini. - Roslan",
+"⭐⭐⭐⭐⭐ 5 Bintang - Suka aplikasi! Arahan jelas, antara muka lancar. - Farhana",
+"⭐⭐⭐⭐⭐ 5 Bintang - Tugasan mudah, menyeronokkan, menguntungkan. - Amirul",
+"⭐⭐⭐⭐ 4 Bintang - Aplikasi baik, kadang ralat, masih bagus. - Siti Aisyah",
+"⭐⭐⭐⭐⭐ 5 Bintang - Menyiapkan banyak tugasan, pembayaran cepat. - Daniel",
+"⭐⭐⭐⭐⭐ 5 Bintang - Hebat untuk pendapatan tambahan. Mudah diikuti. - Puteri",
+"⭐⭐⭐⭐ 4 Bintang - Tugasan ringkas, mudah, pembayaran dijamin. - Johan",
+"⭐⭐⭐⭐⭐ 5 Bintang - Suka aplikasi! Pendapatan tambahan mudah. - Nadiah",
+"⭐⭐⭐⭐⭐ 5 Bintang - Antara muka bersih, tugasan mudah, pendapatan nyata. - Hakim"
+];
+
+const track = document.getElementById('review-track');
+function populateReviews(lang){
+  track.innerHTML = '';
+  const data = (lang==='ms')?reviews_ms:reviews_en;
+  data.forEach(r=>{
+    const div = document.createElement('div');
+    div.className='review';
+    div.innerHTML=`<p>${r}</p>`;
+    track.appendChild(div);
+  });
+}
+populateReviews('en'); // default English
+
+function setLanguage(lang){
+  if(lang==='en'){
+    document.getElementById('intro-text').innerText="A simple task you can do on your phone. No upfront fees, payment after completion.";
+    document.getElementById('download-title').innerText="Download the app";
+    document.getElementById('android-btn').innerText="Android Download";
+    document.getElementById('ios-btn').innerText="iOS Download";
+    document.getElementById('start-title').innerText="How to start";
+    document.getElementById('steps-text').innerHTML="1. Install the app<br>2. Register a new account<br>3. Add guide ID: <strong>syafikah213</strong>";
+    document.getElementById('reviews-title').innerText="Customer Reviews";
+    document.getElementById('faq-title').innerText="FAQ";
+    document.getElementById('faq-q1').innerText="Is this a scam?";
+    document.getElementById('faq-a1').innerText="No, it’s not. No deposit or upfront payment is needed.";
+    document.getElementById('faq-q2').innerText="Do I need to pay anything?";
+    document.getElementById('faq-a2').innerText="No fees required. You only get paid after completing tasks.";
+    document.getElementById('faq-q3').innerText="Can I stop anytime?";
+    document.getElementById('faq-a3').innerText="Yes, you can stop anytime you want.";
+  } else {
+    document.getElementById('intro-text').innerText="Tugasan mudah yang boleh anda lakukan di telefon. Tiada yuran pendahuluan, pembayaran selepas selesai.";
+    document.getElementById('download-title').innerText="Muat turun aplikasi";
+    document.getElementById('android-btn').innerText="Muat turun Android";
+    document.getElementById('ios-btn').innerText="Muat turun iOS";
+    document.getElementById('start-title').innerText="Cara mula";
+    document.getElementById('steps-text').innerHTML="1. Pasang aplikasi<br>2. Daftar akaun baru<br>3. Tambah ID panduan: <strong>syafikah213</strong>";
+    document.getElementById('reviews-title').innerText="Ulasan Pelanggan";
+    document.getElementById('faq-title').innerText="Soalan Lazim";
+    document.getElementById('faq-q1').innerText="Adakah ini penipuan?";
+    document.getElementById('faq-a1').innerText="Tidak, ini bukan penipuan. Tiada yuran pendahuluan diperlukan.";
+    document.getElementById('faq-q2').innerText="Adakah saya perlu membayar apa-apa?";
+    document.getElementById('faq-a2').innerText="Tiada bayaran diperlukan. Anda hanya akan dibayar selepas melengkapkan tugasan.";
+    document.getElementById('faq-q3').innerText="Bolehkah saya berhenti pada bila-bila masa?";
+    document.getElementById('faq-a3').innerText="Ya, anda boleh berhenti pada bila-bila masa.";
+  }
+  populateReviews(lang);
+}
+</script>
+</body>
+</html>
